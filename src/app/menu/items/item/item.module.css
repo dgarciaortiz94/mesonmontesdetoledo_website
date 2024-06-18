@@ -1,0 +1,44 @@
+.tableRow {
+    cursor: pointer;
+}
+
+.tableRow:nth-child(odd) {
+    background-color: #f5f5f5 !important;
+}
+
+.tableRow__body {
+    display: flex;
+    align-items: center;
+}
+
+.tableRow__moveButton {
+    padding: 10px;
+    cursor: pointer;
+    z-index: 100;
+    border-right: 1px dotted rgba(0, 0, 0, .2);
+}
+
+.tableRow__name {
+    padding: 10px;
+}
+
+.tableRow__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.tableRow__crud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.crud__button {
+    padding: 4px;
+}
+
+.cursorMove {
+    cursor: move;
+}

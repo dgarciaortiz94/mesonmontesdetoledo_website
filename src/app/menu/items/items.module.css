@@ -1,0 +1,13 @@
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.searchBar__input {
+    padding: 5px 10px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+}

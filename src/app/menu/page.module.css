@@ -1,0 +1,17 @@
+.pageTitle {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffdd30;
+  position: relative;
+}
+
+/* .pageTitle::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-bottom: 55px solid #ffffff;
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
