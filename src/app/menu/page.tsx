@@ -1,16 +1,13 @@
+import { MenusProvider } from "./menusProvider";
 import Items from "./items/items";
-import styles from "./page.module.css";
+import { PageModal } from "../utils/pageModal/pageModal";
 
 export default function Menu() {
   return (
-    <main>
-      <section className="container">
-          <h1 className={`${styles.pageTitle}`}>
-              <i aria-hidden className="fa-solid fa-chevron-right fa-xs"></i>&nbsp; Menús
-          </h1>
+      <MenusProvider>
+        <Items />
 
-          <Items />
-      </section>
-  </main>
+        <PageModal></PageModal>
+      </MenusProvider>
   );
 }
