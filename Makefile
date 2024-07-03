@@ -1,5 +1,5 @@
 CONTAINER_NAME = mesonmontesdetoledo_website
-CONTAINER_PATH = /var/www/html/mesonmontesdetoledo_web
+CONTAINER_PATH = /var/www/html/mesonmontesdetoledo_website
 
 build:
 	docker-compose up -d --remove-orphans --build
@@ -14,6 +14,7 @@ build:
 
 start:
 	docker-compose up -d --remove-orphans
+	$(MAKE) npm-run-dev
 
 restart:
 	docker-compose down
@@ -28,11 +29,5 @@ delete:
 exec:
 	docker exec -it ${CONTAINER_NAME} bash
 
-test:
-	docker exec ${CONTAINER_NAME} sh -c "cd ${CONTAINER_PATH} && php bin/phpunit"
-
-cs-fix:
-	docker exec ${CONTAINER_NAME} sh -c "cd ${CONTAINER_PATH} && vendor/bin/php-cs-fixer fix"
-
-php-stan:
-	docker exec ${CONTAINER_NAME} sh -c "cd ${CONTAINER_PATH} && vendor/bin/phpstan analyse"
+npm-run-dev:
+	docker exec ${CONTAINER_NAME} sh -c "cd ${CONTAINER_PATH} && npm run dev"
