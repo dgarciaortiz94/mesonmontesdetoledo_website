@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from '@/app/utils/BootstrapClient.js';
 import "./globals.css";
+import { PageModal } from "./utils/pageModal/pageModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,19 @@ export default function RootLayout({
         <BootstrapClient />
       </head>
       <body>
-        <div className="mode-button"><i aria-hidden className="fa-solid fa-sun fa-lg"></i></div>
+        <div className="title-area">
+          <div className="mode-button"><i aria-hidden className="fa-solid fa-sun fa-lg"></i></div>
 
-        <section className="container">{children}</section>
+        <div className="container">
+          <h1 className="page-title">
+            <i aria-hidden className="fa-solid fa-chevron-right fa-xs"></i>&nbsp; Menús
+          </h1>
+        </div>
+        </div>
 
-        <div className="navbar-wrapper">
+        <section className="main-area container">{children}</section>
+
+        <div className="navbar-area">
           <div className="navbar">
             <a href=""><div className="navbar__button"><i aria-hidden className="fa-solid fa-utensils"></i></div></a>
             <a href=""><div className="navbar__button"><i aria-hidden className="fa-solid fa-list"></i></div></a>

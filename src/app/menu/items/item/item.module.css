@@ -2,6 +2,11 @@
     cursor: pointer;
 }
 
+.tableRow:active, .tableRow:focus-visible {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fceb96 !important;
+}
+
 .tableRow:nth-child(odd) {
     background-color: #f5f5f5 !important;
 }
@@ -40,5 +45,10 @@
 }
 
 .cursorMove {
-    cursor: move;
+    cursor: grab;
+    touch-action: none;
+}
+
+.cursorMove:hover {
+    background-color: var(--action-background, rgba(0, 0, 0, 0.05));
 }

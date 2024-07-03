@@ -1,13 +1,14 @@
 .searchBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+    flex-shrink: 0;
+    max-height: 30px;
 }
 
 .searchBar__input {
+    width: 100%;
+    max-width: 250px;
     padding: 5px 10px;
     outline: none;
     border: none;
     border-bottom: 1px solid #dddddd;
+    padding-right: 15px;
 }

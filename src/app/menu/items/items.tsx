@@ -3,84 +3,69 @@
 import styles from "./items.module.css";
 
 // import styles from "./page.module.css";
-import React, {useEffect, useState} from 'react';
-import {DndContext, closestCenter, DragEndEvent} from '@dnd-kit/core';
-import {SortableContext, arrayMove, verticalListSortingStrategy} from '@dnd-kit/sortable';
-import {restrictToVerticalAxis} from '@dnd-kit/modifiers';
-import {Item} from './item/item';
-import Menu from '@/menu/domain/menu';
+import React, { useContext, useEffect } from 'react';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { Item } from './item/item';
+import { MenusContext } from "@/app/menu/menusContext";
 
 export default function Items() {
-    let [menus, setMenus] = useState<Menu[]>([]);
+    const { menus, readMenus, moveMenu } = useContext(MenusContext);
 
     useEffect(() => {
-        fetch('http://localhost/mesonmontesdetoledo/public/dashboard/menu', {
-            method: "GET", 
-            headers: {
-                "Content-Type": "application/json"
+        async function getMenus() {
+            try {
+                await readMenus();   
+            } catch (error) {
+                console.error("Error al leer los menus", error);
             }
-        })
-            .then(json => json.json())
-            .then(data => {
-                setMenus(() => data.map((i : Menu) => new Menu(i.id, i.name)));
 
-                console.log(menus);
-            });
+            return;
+        };
+
+        getMenus();
     }, []);
 
-    const handleDragEnd = (e: DragEndEvent) => {
+    async function handleDragEnd(e: DragEndEvent) {
         const {active, over} = e;
 
         if (over && active.id !== over.id) {
             const activeItemIndex = menus.findIndex(item => item.id === active.id);
             const overItemIndex = menus.findIndex(item => item.id === over.id);
 
-            setMenus(items => {
-                return arrayMove(items, activeItemIndex, overItemIndex);
-            });
+            arrayMove(menus, activeItemIndex, overItemIndex);
 
-            fetch('http://localhost/mesonmontesdetoledo/public/dashboard/menu/move', {
-                method: "POST", 
-                headers: {
-                    "Content-Type": "application/json"
-                }, 
-                body: JSON.stringify({
-                    'activeItemIndex': active.id,
-                    'overItemIndex': over.id,
-                })
-            })
-                .then(json => json.json())
-                .then(data => {
-                    // setMenus(() => data.map((i : Menu) => new Menu(i.id, i.name)));
-    
-                    console.log(menus);
-                })
-                .catch(error => {
-                    console.log(error);
-
-                    setMenus(items => {
-                        return arrayMove(items, overItemIndex, activeItemIndex);
-                    });
-                });
+            try {
+                await moveMenu(menus, active.id.toString(), over.id.toString());
+            } catch (error) {
+                arrayMove(menus, overItemIndex, activeItemIndex);
+            }
         }
     };
 
     return (
-        <main>
-            <div className={`${styles.searchBar}`}>
-                <input type="text" name="search" className={`${styles.searchBar__input} fa`} placeholder='&#xf002;' />
-                <button className='btn btn-success btn-sm'><i className="fa-solid fa-plus"></i> Añadir</button>
+        <main className="crud-panel">
+            <div className={`${styles.searchBar} row`}>
+                <div className="col-8 col-md-10">
+                    <input type="text" name="search" className={`${styles.searchBar__input} fa`} placeholder='&#xf002; Buscar' />
+                </div>
+                <div className="col-4 col-md-2 d-flex justify-content-end">
+                    <button type="button" className='btn btn-success btn-sm' data-bs-toggle="modal" data-bs-target="#pageModal"><i aria-hidden className="fa-solid fa-plus"></i> Añadir</button>
+                </div>
             </div>
 
-            <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
-                <SortableContext items={menus} strategy={verticalListSortingStrategy}>
-                    {
-                        menus.map(menu => (
-                            <Item menu={menu} key={menu.id} />
-                        ))
-                    }
-                </SortableContext>
-            </DndContext>
+            <div className="reactive-table">
+                <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
+                    <SortableContext items={menus} strategy={verticalListSortingStrategy}>
+                        {
+                            menus.map(menu => (
+                                <Item menu={menu} key={menu.id} />
+                            ))
+                        }
+                    </SortableContext>
+                </DndContext>
+            </div>
         </main>
     );
 }

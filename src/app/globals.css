@@ -3,18 +3,13 @@
   src: url("../../public/assets/fonts/Roboto/Roboto-Regular.ttf");
 }
 
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
-  position: relative;
   font-size: 14px;
   font-family: Roboto;
-  padding-bottom: 100px;
+  height: 100vh;
 }
 
 body * {
@@ -26,20 +21,51 @@ a {
   text-decoration: none;
 }
 
-.mode-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1;
-  opacity: .6;
+.title-area {
+  background: rgb(255,255,255);
+  background: linear-gradient(45deg, rgba(255,255,255,0) 95px, rgba(0,0,0,1) 95px);
+  background-size: 95px 95px;
+  background-repeat: no-repeat;
+  background-position: top right;
+  margin-bottom: 20px;
 }
 
-.navbar-wrapper {
+.page-title {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 2px dashed #ffdd30;
+}
+
+.main-area {
+  height: 100%;
+  overflow: hidden;
+}
+
+.navbar-area {
+  margin: 20px 0 20px 0;
+}
+
+.mode-button {
   position: fixed;
-  bottom: 15px;
-  left: 0;
-  width: 100%;
-  min-height: 35px;
+  top: -7px;
+  right: -35px;
+  transform: rotateZ(45deg);
+  z-index: 1;
+  padding: 15px 40px 8px 40px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.crud-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.reactive-table {
+  margin: 15px 0;
+  overflow-y: scroll;
 }
 
 .navbar {
@@ -69,7 +95,7 @@ a {
   display: grid;
   place-content: center;
   border-radius: 100%;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
   cursor: pointer;
   transform-origin: center;
 }

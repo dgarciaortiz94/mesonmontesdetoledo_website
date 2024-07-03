@@ -25,7 +25,7 @@ export function Item(props: {menu: Menu}) {
         <main ref={setNodeRef} style={style} className={`${styles.tableRow}`}>
             <div className="accordion-item">
                 <div className={`${styles.tableRow__body} collapsed`} data-bs-toggle="collapse" data-bs-target="#acordion-item-{{menu.id}}">
-                    <div {...attributes} {...listeners}><i aria-hidden className={`${styles.cursorMove} fa-solid fa-grip-vertical px-3 py-2`}></i></div>
+                    <div {...attributes} {...listeners} className={styles.cursorMove}><i aria-hidden className={`fa-solid fa-grip-vertical px-3 py-2`}></i></div>
                     <div className={`${styles.tableRow__content}`}>
                         <div className={`${styles.tableRow__name}`}>{props.menu.name}</div>
                         <div className={`${styles.tableRow__crud}`}>
